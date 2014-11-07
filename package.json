@@ -1,0 +1,19 @@
+{
+  "name": "travis-test",
+  "version": "1.0.0",
+  "description": "travist-test ============",
+  "main": "index.js",
+  "scripts": {
+    "test": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tgrrtt/travis-test.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tgrrtt/travis-test/issues"
+  },
+  "homepage": "https://github.com/tgrrtt/travis-test"
+}
