@@ -1,0 +1,15 @@
+language: node_js
+node_js:
+  - "0.10"
+after_success:
+  - tar -zcvf tg-$TRAVIS_BRANCH.tar.gz
+  - test $TRAVIS_BRANCH == "develop" && echo "on develop"
+deploy:
+  provider: releases
+  api_key:
+    secure: dYl992DRXkR0JKRxyFQy+AYFcVzbLi6+DnSVu+Ht6in0/ddb+MO+rCZc8YSNTQmky1gFPzEcv9LMxo+mdrjLrFN7sUY8KeysAWedeb/mCrixdyELwdy5hSR/fZTqFXoJUWon3HPybenhrUwsG6FcAXlKzDPCjdHGKjHgjibUzfI=
+  file: tg-$TRAVIS_BRANCH.tar.gz
+  on:
+    repo: tgrrtt/travis-test
+    all_branches: true
+    tags: true
