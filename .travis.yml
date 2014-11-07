@@ -13,3 +13,5 @@ deploy:
     repo: tgrrtt/travis-test
     all_branches: true
     tags: true
+notifications:
+  email: false
