@@ -1,6 +1,13 @@
 language: node_js
 node_js:
 - '0.10'
+notifications:
+  email: false
+before_install:
+- openssl aes-256-cbc -K $encrypted_d97f125b9303_key -iv $encrypted_d97f125b9303_iv
+  -in .travis/regex.azure.key.enc -out .travis/regex.azure.key -d
+before_script:
+  - echo -e "Host *.cloudapp.net\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 after_success:
 - test $TRAVIS_BRANCH != "develop"
   && gulp build && cp package.json dist/package.json
@@ -24,8 +31,3 @@ deploy:
     repo: tgrrtt/travis-test
     all_branches: true
     tags: true
-notifications:
-  email: false
-before_install:
-- openssl aes-256-cbc -K $encrypted_d97f125b9303_key -iv $encrypted_d97f125b9303_iv
-  -in .travis/regex.azure.key.enc -out .travis/regex.azure.key -d
