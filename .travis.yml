@@ -1,9 +1,6 @@
 language: node_js
 node_js:
 - '0.10'
-before_script:
-- openssl aes-256-cbc -K $encrypted_25f10c15ad6e_key -iv $encrypted_25f10c15ad6e_iv
-  -in regex.azure.key.enc -out regex.azure.key -d
 after_success:
 - test $TRAVIS_BRANCH != "develop"
   && gulp build && cp package.json dist/package.json
@@ -31,4 +28,4 @@ notifications:
   email: false
 before_install:
 - openssl aes-256-cbc -K $encrypted_d97f125b9303_key -iv $encrypted_d97f125b9303_iv
-  -in regex.azure.key.enc -out .travis/regex.azure.key -d
+  -in .travis/regex.azure.key.enc -out .travis/regex.azure.key -d
