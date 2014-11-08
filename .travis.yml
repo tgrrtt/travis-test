@@ -2,7 +2,7 @@ language: node_js
 node_js:
   - "0.10"
 after_success:
-  - tar -zcvf tg-$TRAVIS_BRANCH.tar.gz
+  - tar -zcvf tg-$TRAVIS_BRANCH.tar.gz dist
   - test $TRAVIS_BRANCH == "develop" && echo "on develop"
 deploy:
   provider: releases
