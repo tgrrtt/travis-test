@@ -21,7 +21,7 @@ after_success:
   && eval $(ssh-agent)
   && ssh-add .travis/regex.azure.key
   && git remote add deploy-server tg@regex-test.cloudapp.net:/home/tg/travis-test/.git
-  && git push --force deploy-server deploy-branch
+  && git push --force deploy-server $TRAVIS_BRANCH:deploy-branch
 deploy:
   provider: releases
   api_key:
