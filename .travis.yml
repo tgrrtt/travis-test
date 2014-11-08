@@ -20,8 +20,8 @@ after_success:
   && chmod 600 .travis/regex.azure.key
   && eval $(ssh-agent)
   && ssh-add .travis/regex.azure.key
-  && git remote add deploy-server tg@regex-test.cloudapp.net:/home/tg/travis-test/.git
-  && git push --force deploy-server $TRAVIS_BRANCH:deploy-branch
+  && git remote add deploy-server tg@regex-test.cloudapp.net:/home/tg/travis-test.git
+  && git push --force deploy-server $TRAVIS_BRANCH:master
 deploy:
   provider: releases
   api_key:
