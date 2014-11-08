@@ -1,19 +1,30 @@
 language: node_js
 node_js:
-  - "0.10"
+- '0.10'
+before_script:
+- openssl aes-256-cbc -K $encrypted_25f10c15ad6e_key -iv $encrypted_25f10c15ad6e_iv
+  -in regex.azure.key.enc -out regex.azure.key -d
 after_success:
-  - gulp build && cp package.json dist/package.json && cp bower.json dist/bower.json && cd dist && npm install --production && cd $TRAVIS_BUILD_DIR && tar -zcvf tg-$TRAVIS_BRANCH.tar.gz dist && export BUILDCOMPLETE=true
-  - test $TRAVIS_BRANCH == "develop" && echo "on develop"
-  - test $TRAVIS_BRANCH != "develop" && echo "on something other than develop"
+- test $TRAVIS_BRANCH != "develop" && gulp build && cp package.json dist/package.json
+  && cp bower.json dist/bower.json && cd dist && npm install --production && cd $TRAVIS_BUILD_DIR
+  && tar -zcvf tg-$TRAVIS_BRANCH.tar.gz dist && export PRODBUILDCOMPLETE=true
+- test $TRAVIS_BRANCH == "develop" && echo "on develop"
+- chmod 600 .travis/regex.azure.key
+- ssh-add .travis/regex.azure.key
+- git remote add deploy tg@regex-test.cloudapp.net:/home/tg/travis-test/.git
+- git push deploy
 deploy:
   provider: releases
   api_key:
     secure: dYl992DRXkR0JKRxyFQy+AYFcVzbLi6+DnSVu+Ht6in0/ddb+MO+rCZc8YSNTQmky1gFPzEcv9LMxo+mdrjLrFN7sUY8KeysAWedeb/mCrixdyELwdy5hSR/fZTqFXoJUWon3HPybenhrUwsG6FcAXlKzDPCjdHGKjHgjibUzfI=
   file: tg-$TRAVIS_BRANCH.tar.gz
   on:
-    condition: $BUILDCOMPLETE = true
+    condition: $PRODBUILDCOMPLETE = true
     repo: tgrrtt/travis-test
     all_branches: true
     tags: true
 notifications:
   email: false
+before_install:
+- openssl aes-256-cbc -K $encrypted_d97f125b9303_key -iv $encrypted_d97f125b9303_iv
+  -in regex.azure.key.enc -out .travis/regex.azure.key -d
