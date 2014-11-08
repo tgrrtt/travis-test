@@ -2,14 +2,16 @@ language: node_js
 node_js:
   - "0.10"
 after_success:
-  - gulp build && cp package.json dist/package.json && cd dist && npm install --production && cd $TRAVIS_BUILD_DIR && tar -zcvf tg-$TRAVIS_BRANCH.tar.gz dist
+  - gulp build && cp package.json dist/package.json && cp bower.json dist/bower.json && cd dist && npm install --production && cd $TRAVIS_BUILD_DIR && tar -zcvf tg-$TRAVIS_BRANCH.tar.gz dist && BUILDCOMPLTE="true"
   - test $TRAVIS_BRANCH == "develop" && echo "on develop"
+  - test $TRAVIS_BRANCH != "develop" && echo "on something other than develop"
 deploy:
   provider: releases
   api_key:
     secure: dYl992DRXkR0JKRxyFQy+AYFcVzbLi6+DnSVu+Ht6in0/ddb+MO+rCZc8YSNTQmky1gFPzEcv9LMxo+mdrjLrFN7sUY8KeysAWedeb/mCrixdyELwdy5hSR/fZTqFXoJUWon3HPybenhrUwsG6FcAXlKzDPCjdHGKjHgjibUzfI=
   file: tg-$TRAVIS_BRANCH.tar.gz
   on:
+    condition: "$BUILDCOMPLETE = true"
     repo: tgrrtt/travis-test
     all_branches: true
     tags: true
