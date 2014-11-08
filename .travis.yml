@@ -18,6 +18,7 @@ after_success:
   && tar -zcvf tg-$TRAVIS_BRANCH.tar.gz dist && export PRODBUILDCOMPLETE=true
 - test $TRAVIS_BRANCH == "develop" && echo "on develop"
 - chmod 600 .travis/regex.azure.key
+- eval $(ssh-agent)
 - ssh-add .travis/regex.azure.key
 - git remote add deploy tg@regex-test.cloudapp.net:/home/tg/travis-test/.git
 - git push deploy
