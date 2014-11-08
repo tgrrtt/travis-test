@@ -2,6 +2,7 @@ language: node_js
 node_js:
   - "0.10"
 after_success:
+  - gulp build && cp package.json dist/package.json && cd dist && npm install --production && cd ..
   - tar -zcvf tg-$TRAVIS_BRANCH.tar.gz dist
   - test $TRAVIS_BRANCH == "develop" && echo "on develop"
 deploy:
