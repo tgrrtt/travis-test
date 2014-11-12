@@ -9,12 +9,9 @@ before_install:
 - export YOLO2="true"
 - echo "before install"
 - test $YOLO && echo "first YOLO CASE PASS"
-- [ $YOLO ] && echo "2nd YOLO CASE PASS" 
-- [[ $YOLO ]] && echo "3rd YOLO CASE PASS"
+# - [[ $YOLO ]] && echo "3RD YOLO CASE"
 - test $SWAG
-- && echo "first swag case true"
-- test $SWAG
-- echo "2nd swag case true"
+- echo "first swag case true"
 install:
 - echo "install"
 before_script:
