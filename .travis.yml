@@ -5,7 +5,12 @@ notifications:
   email: false
 
 before_install:
+- export YOLO=true
+- export YOLO2="true"
 - echo "before install"
+- test $YOLO && echo "first YOLO CASE PASS"
+- [ $YOLO ] && echo "2nd YOLO CASE PASS" 
+- [[ $YOLO ]] && echo "3rd YOLO CASE PASS"
 install:
 - echo "install"
 before_script:
